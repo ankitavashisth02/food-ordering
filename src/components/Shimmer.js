@@ -1,6 +1,6 @@
 const Shimmer =()=>{
     return(
-        <h1>Shimmer UI loading ....</h1>
+        <h1>Shimmer UI loading .... ha ha</h1>
     );
 }
 
