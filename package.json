@@ -1,0 +1,31 @@
+{
+  "name": "without-cdn-links",
+  "version": "1.0.0",
+  "description": "this is a live course",
+  "scripts": {
+    "start" : "parcel index.html",
+    "build": "parcel build index.html",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ankitavashisth02/food-ordering.git"
+  },
+  "author": "Ankita Shama",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ankitavashisth02/food-ordering/issues"
+  },
+  "homepage": "https://github.com/ankitavashisth02/food-ordering#readme",
+  "dependencies": {
+    "parcel": "^2..2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "process": "^0.11.10"
+  },
+  "browserslist" : [
+    "last 10 Firefox versions"
+  ]
+}
