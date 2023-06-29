@@ -1,4 +1,5 @@
 import { useState } from "react";
+import logo from "../assets/foodvilla.png";
 
 const loggedInUser = ()=>{
     // API call to check authentication
@@ -9,7 +10,7 @@ const loggedInUser = ()=>{
 const Title=() => {
     return(
         <a href="/">
-    <img className="logo" alt="logo" src="https://yt3.ggpht.com/ytc/AMLnZu_EC-ECXAxRAixWGEfMsE1rdSoetBHyxmLNdtCB=s900-c-k-c0x00ffffff-no-rj" />
+    <img className="logo" alt="logo" src={logo} />
     </a>
 );
 }
@@ -17,6 +18,7 @@ const Title=() => {
 const Header = ()=>{
 
     const [ isLoggedIn , setIsLoggedIn] = useState(false);
+
 
     return (
 

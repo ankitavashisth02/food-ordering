@@ -35,9 +35,7 @@ const Body = ()=>{
     // early return
     if(!allRestaurants) return null;
 
-    if(filteredRestaurants?.length ===0 ){
-        return <h1>No restaurants matches your filter !!</h1>;
-    }
+
 
     return (allRestaurants?.length === 0) ? (<Shimmer/>) :(
         <React.Fragment>
