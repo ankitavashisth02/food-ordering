@@ -1,36 +1,77 @@
 import {useState,useEffect} from "react";
 import { useParams } from "react-router-dom";
 import { IMG_CDN_URL } from "../constants";
+import Shimmer from "./Shimmer";
 
 const RestaurantMenu = () =>{
     // const params = useParams();
     // const {id} = params;
     // OR
 
-    const {id} = useParams();
+    const { id } = useParams();
 
-    const [restaurant , setRestaurant] = useState({});
+    const [restaurant , setRestaurant] = useState(null);
+    const [restaurantMenu , setRestaurantMenu] = useState(null);
 
     useEffect(()=>{
         getRestaurantInfo();
     },[])
 
     async function getRestaurantInfo(){
-        const data = await fetch("https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=30.7333148&lng=76.7794179&restaurantId=254108&submitAction=ENTER");
+        const data = await fetch("https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=30.7333148&lng=76.7794179&restaurantId="+ id +"&submitAction=ENTER");
         const json = await data.json();
-        console.log(json.data);
-        setRestaurant(json.data.cards[0].card.card.info);
+        setRestaurant(json?.data?.cards[0]?.card?.card?.info);
+    }
+
+    useEffect(()=>{
+        getRestaurantMenu();
+    },[])
+
+    async function getRestaurantMenu(){
+        const data = await fetch("https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=30.7333148&lng=76.7794179&restaurantId="+ id +"&submitAction=ENTER");
+        const json = await data.json();
+
+        setRestaurantMenu(json?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card);
     }
     
-    return(
+    return (!restaurant) ? <Shimmer/> :(
         <div>
-        <h1>Restaurant id : {id}</h1>
-        <h2>{restaurant.name}</h2>
-        <img src={IMG_CDN_URL + restaurant.cloudinaryImageId} />
-        <h2>{restaurant.areaName}</h2>
-        <h2>{restaurant.avgRating} stars</h2>
-        <h2>{restaurant.costForTwo}</h2>
+
+        <div>
+        <h1>About Restaurant :- </h1>
+        <h3>Restaurant Id = {id}</h3>
+        <img src={IMG_CDN_URL+ restaurant.cloudinaryImageId}/>
+        <h3>{restaurant.name}</h3>
+        <h3>{restaurant.city}</h3>
+        <h3>{restaurant.areaName}</h3>
+        <h3>{restaurant.cuisines.join(",")}</h3>
         </div>
+
+        <hr/>
+
+        <div>
+        <h1>Menu :</h1>
+        <br/>
+        <h2>{restaurantMenu?.title}</h2>
+        <ul>
+        {
+            (restaurantMenu?.itemCards).map((r)=>{
+                return <li>{r?.card?.info?.name}</li>
+            })
+        }
+        </ul>
+
+        </div>
+
+        </div>
+
+        // <h4>{restaurantMenu?.itemCards[0]?.card?.info?.name}</h4>
+        // <h4>{restaurantMenu?.itemCards[1]?.card?.info?.name}</h4>
+        // <h4>{restaurantMenu?.itemCards[2]?.card?.info?.name}</h4>
+        // <h4>{restaurantMenu?.itemCards[3]?.card?.info?.name}</h4>
+        // <h4>{restaurantMenu?.itemCards[4]?.card?.info?.name}</h4>
+        // <h4>{restaurantMenu?.itemCards[5]?.card?.info?.name}</h4>
+
     );
 }
 
