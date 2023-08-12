@@ -8,7 +8,7 @@ import Shimmer from "./Shimmer";
 // algorithm to seprate the list of restaurant that are searched.
 
 function filterData(searchText, restaurants){
-    const filterData = restaurants.filter((restaurant)=> restaurant?.data?.name?.toLowerCase()?.includes(searchText.toLowerCase()));
+    const filterData = restaurants.filter((restaurant)=> restaurant?.info?.name?.toLowerCase()?.includes(searchText.toLowerCase()));
     return filterData;
 }
 
@@ -27,9 +27,9 @@ const Body = ()=>{
     async function getRestaurant(){
         const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=30.7333148&lng=76.7794179&page_type=DESKTOP_WEB_LISTING");
         const json = await data.json();
-        console.log(json);
-        setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
-        setFilteredRestaurants(json?.data?.cards[2]?.data?.data?.cards);
+        //console.log(json);
+        setAllRestaurants(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+        setFilteredRestaurants(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
     }
 
 
@@ -56,8 +56,8 @@ const Body = ()=>{
         {
             filteredRestaurants.map((restaurant)=>{
                 return (
-                   <Link to={"/restaurant/"+ restaurant.data.id } key={restaurant.data.id}>
-                    <RestaurantCard {...restaurant.data} />
+                   <Link to={"/restaurant/"+ restaurant.info.id } key={restaurant.info.id}>
+                    <RestaurantCard {...restaurant.info} />
                    </Link>
                     );
             })
