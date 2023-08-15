@@ -46,12 +46,12 @@ const Body = ()=>{
 
     return (allRestaurants?.length === 0) ? (<Shimmer/>) :(
         <React.Fragment>
-        <div className="search-container">
-            <input type="text" className="search-input" placeholder="Search" value={searchText} onChange ={(e)=>{
+        <div className="p-5 bg-pink-50 my-2">
+            <input type="text" className="focus:bg-green-50" placeholder="Search" value={searchText} onChange ={(e)=>{
                 setSearchText(e.target.value);
             }}/>
             
-            <button className="search-btn" onClick={()=>{
+            <button className="p-2 m-2 bg-purple-400 rounded-2xl hover:bg-pink-600" onClick={()=>{
                 //need to filter the data
                 const data = filterData(searchText, allRestaurants);
                 //update the state- restaurant
@@ -60,7 +60,7 @@ const Body = ()=>{
         </div>
 
 
-        <div className="restaurant-list">
+        <div className="flex flex-wrap">
         {
             filteredRestaurants.map((restaurant)=>{
                 return (
