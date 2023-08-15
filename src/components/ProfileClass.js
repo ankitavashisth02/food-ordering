@@ -34,7 +34,7 @@ class Profile extends React.Component {
 
 
     render(){
-        // console.log("child-render" + this.props.name);
+        console.log("child-render " + this.state.name);
         return (
             <div>
             <hr/>
@@ -49,7 +49,7 @@ export default Profile ;
 
 
 /**
- * <img src={this.state.userInfo?.avatar_url} />
-            <p>Name : {this.state.userInfo?.name}</p>
-            <p>Location : {this.state.userInfo?.location}</p>
+        <img src={this.state.userInfo?.avatar_url} />
+        <p>Name : {this.state.userInfo?.name}</p>
+        <p>Location : {this.state.userInfo?.location}</p>
  */

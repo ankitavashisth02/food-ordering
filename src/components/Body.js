@@ -4,13 +4,15 @@ import { restaurantList } from "../constants";
 import RestaurantCard from "./RestaurantCard";
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
+import { filterData } from "../utils/helper";
+import useOnline from "../utils/useOnline";
 
 // algorithm to seprate the list of restaurant that are searched.
 
-function filterData(searchText, restaurants){
-    const filterData = restaurants.filter((restaurant)=> restaurant?.info?.name?.toLowerCase()?.includes(searchText.toLowerCase()));
-    return filterData;
-}
+// function filterData(searchText, restaurants){
+//     const filterData = restaurants.filter((restaurant)=> restaurant?.info?.name?.toLowerCase()?.includes(searchText.toLowerCase()));
+//     return filterData;
+// }
 
 const Body = ()=>{
     
@@ -32,11 +34,15 @@ const Body = ()=>{
         setFilteredRestaurants(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
     }
 
+    // const isOnline = useOnline();
 
-    // early return
-    if(!allRestaurants) return null;
+    // if(!isOnline){
+    //     return <h1>🔴Offline , please check your internet connection.</h1>
+    // }
 
 
+    //not render component (early return)
+    //if(!allRestaurants) return null;
 
     return (allRestaurants?.length === 0) ? (<Shimmer/>) :(
         <React.Fragment>
@@ -46,7 +52,9 @@ const Body = ()=>{
             }}/>
             
             <button className="search-btn" onClick={()=>{
-                const data=filterData(searchText, allRestaurants);
+                //need to filter the data
+                const data = filterData(searchText, allRestaurants);
+                //update the state- restaurant
                 setFilteredRestaurants(data);
             }}>Search</button>
         </div>

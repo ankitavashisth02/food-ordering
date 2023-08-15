@@ -40,3 +40,9 @@
     background: lightgray;
     margin :20px;
 }
+
+
+.menu{
+    display: flex;
+    padding-left : 50px;
+}

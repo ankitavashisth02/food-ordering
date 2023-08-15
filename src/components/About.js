@@ -22,10 +22,11 @@ class About extends Component{
         return(
             <div>
             <hr/>
-            <h1>about us page</h1>
-            <p>this is nameste react live course.</p>
-            
-            <ProfileFunctionalComponent name={"Functional Child"}/>
+            <h1>About us page</h1>
+            <p>This is nameste react live course.</p>
+                <div>
+                    {<Outlet/>}
+                </div>
             </div>
         );
     }
