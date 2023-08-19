@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import logo from "../assets/foodvilla.png";
 import { Link } from "react-router-dom";
 import useOnline from "../utils/useOnline";
+import UserContext from "../utils/UserContext.js";
 
-const loggedInUser = ()=>{
-    // API call to check authentication
-    return false;
-}
+// SPA - single page application
+// Client Side Routing
+
+// const loggedInUser = ()=>{
+//     // API call to check authentication
+//     return false;
+// }
 
 
 const Title=() => {
@@ -21,9 +25,9 @@ const Header = ()=>{
 
     const [ isLoggedIn , setIsLoggedIn] = useState(false);
 
-
     const isOnline = useOnline();
 
+    const {user} = useContext(UserContext);
 
     return (
 
@@ -39,6 +43,7 @@ const Header = ()=>{
         </ul>
         </div>
         <h1>{isOnline ? "🟢" : "🔴"}</h1>
+        <span className="p-10 font-bold text-red-500">{user.name}</span> 
 
         {
             // we can run any js expression, but cannot write statements;
