@@ -4,6 +4,8 @@ import { IMG_CDN_URL } from "../constants";
 import Shimmer from "./Shimmer";
 import useRestuarant from "../utils/useRestaurant";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
+import { addItem } from "../utils/cartSlice";
+import { useDispatch } from "react-redux";
 
 const RestaurantMenu = () =>{
     
@@ -19,6 +21,12 @@ const RestaurantMenu = () =>{
     const restaurant = useRestuarant(id);
     const restaurantMenu = useRestaurantMenu(id);
 
+    const dispatch = useDispatch();
+
+    const addFoodItem = (item)=> {
+        dispatch(addItem(item));
+    }
+
     // useEffect(()=>{
     //     getRestaurantInfo();
     // },[])
@@ -32,7 +40,7 @@ const RestaurantMenu = () =>{
     // useEffect(()=>{
     //     getRestaurantMenu();
     // },[])
-
+    
     // async function getRestaurantMenu(){
     //     const data = await fetch("https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=30.7333148&lng=76.7794179&restaurantId="+ id +"&submitAction=ENTER");
     //     const json = await data.json();
@@ -41,26 +49,28 @@ const RestaurantMenu = () =>{
     // }
     
     return (!restaurant) ? <Shimmer/> :(
-        <div className="menu">
+        <div className="flex">
 
-            <div>
+            <div className="p-5">
                 <h1>About Restaurant :- </h1>
                 <h3>Restaurant Id = {id}</h3>
+                <h3 className="font-bold text-xl">{restaurant.name}</h3>
                 <img src={IMG_CDN_URL+ restaurant.cloudinaryImageId}/>
-                <h3>{restaurant.name}</h3>
                 <h3>{restaurant.city}</h3>
                 <h3>{restaurant.areaName}</h3>
                 <h3>{restaurant.cuisines.join(",")}</h3>
             </div>
 
-            <div>
+            <div className="p-5">
                 <h1>Menu :</h1>
                 <br/>
-                <h2>{restaurantMenu?.title}</h2>
+                <h2 className="underline">{restaurantMenu?.title}</h2>
                 <ul>
                 {
-                    (restaurantMenu?.itemCards).map((r)=>{
-                        return <li>{r?.card?.info?.name}</li>
+                    (restaurantMenu?.itemCards).map((item)=>{
+                        return (<li>{item?.card?.info?.name} -<button className="p-1 bg-green-100" onClick={()=>{
+                            addFoodItem(item);
+                        }}>Add</button></li>)
                     })
                 }
                 </ul>

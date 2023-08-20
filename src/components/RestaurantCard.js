@@ -11,7 +11,6 @@ const RestaurantCard = ({cloudinaryImageId, name, cuisines, lastMileTravelString
             <h2 className="font-bold text-xl">{name}</h2>
             <h3>{cuisines.join(" , ")}</h3>
             <h2>{lastMileTravelString}</h2>
-            <h5 className="text-purple-300">{user.name}</h5>
             <h5 className="text-purple-300">{user.email}</h5>
         </div>
     );
